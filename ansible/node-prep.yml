@@ -1,0 +1,25 @@
+- name: Prepare nodes for kubeadm
+  hosts: all
+  become: true
+  tasks:
+    - name: Enable IPv4 packet forwarding
+      ansible.posix.sysctl:
+        name: net.ipv4.ip_forward
+        value: "1"
+        sysctl_file: /etc/sysctl.d/k8s.conf
+
+    - name: Add the Docker apt repository
+      ansible.builtin.deb822_repository:
+        name: docker
+        types: deb
+        uris: https://download.docker.com/linux/debian
+        suites: "{{ ansible_facts['distribution_release'] }}"
+        components: stable
+        architectures: amd64
+        signed_by: https://download.docker.com/linux/debian/gpg
+
+    - name: Install containerd
+      ansible.builtin.apt:
+        name: containerd.io
+        update_cache: true
+
