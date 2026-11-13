@@ -2,6 +2,10 @@
   hosts: all
   become: true
   tasks:
+    - name: Install qemu-guest-agent
+      ansible.builtin.apt:
+        name: qemu-guest-agent
+
     - name: Enable IPv4 packet forwarding
       ansible.posix.sysctl:
         name: net.ipv4.ip_forward
