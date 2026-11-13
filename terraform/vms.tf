@@ -49,7 +49,7 @@ resource "proxmox_virtual_environment_vm" "node" {
     }
 
     dns {
-      servers = ["10.0.10.17", "10.0.10.1"]
+      servers = ["10.0.10.17"]
     }
 
     user_account {
