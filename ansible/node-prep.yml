@@ -34,6 +34,31 @@
         mode: "0644"
       notify: Restart containerd
 
+    - name: Add the Kubernetes apt repository
+      ansible.builtin.deb822_repository:
+        name: kubernetes
+        types: deb
+        uris: https://pkgs.k8s.io/core:/stable:/v1.37/deb/
+        suites: /
+        signed_by: https://pkgs.k8s.io/core:/stable:/v1.37/deb/Release.key
+
+    - name: Install kubelet, kubeadm and kubectl
+      ansible.builtin.apt:
+        name:
+          - kubelet
+          - kubeadm
+          - kubectl
+        update_cache: true
+
+    - name: Hold Kubernetes packages
+      ansible.builtin.dpkg_selections:
+        name: "{{ item }}"
+        selection: hold
+      loop:
+        - kubelet
+        - kubeadm
+        - kubectl
+
   handlers:
     - name: Restart containerd
       ansible.builtin.systemd_service:
