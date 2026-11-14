@@ -5,6 +5,8 @@ apps, the chart. Helm values go in `values.yaml`; apps without a chart use
 `kustomization.yaml`. Sync is automatic (prune, self-heal). Removing a folder
 leaves the app's resources running; delete them first.
 
+- **argocd**: Helm 10.18.0, Argo CD managing itself. UI at
+  `argocd.alters.si`; TLS ends at the reverse proxy, so `server.insecure`.
 - **cilium**: Helm 1.20.4. Hubble (Cilium's flow observability) certificates come from a CronJob in the
   cluster; otherwise Argo CD sees new ones on every sync.
 - **local-path**: upstream v0.0.37, made the default StorageClass. Data lives

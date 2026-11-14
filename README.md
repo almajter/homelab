@@ -32,7 +32,7 @@ flowchart LR
 | Runtime | containerd 2.4 | from Docker's repo (Debian's 1.7 is too old) |
 | Kubernetes | kubeadm 1.37 | upgraded by hand |
 | Networking | Cilium 1.20 | kube-proxy kept |
-| GitOps | Argo CD 3.6 | one folder per app |
+| GitOps | Argo CD 3.6 | one folder per app, manages itself |
 | Storage | local-path-provisioner | default StorageClass |
 | Load balancer | MetalLB 0.16 | L2, `10.0.10.30-.33` |
 | Ingress | Traefik 3.7 | `10.0.10.30` |
@@ -51,7 +51,7 @@ After that, everything goes through [`kubernetes/apps/`](kubernetes/apps/).
 
 ```sh
 export KUBECONFIG=~/.kube/homelab
-kubectl -n argocd port-forward svc/argocd-server 8080:443   # Argo CD UI
+kubectl -n argocd port-forward svc/argocd-server 8080:80   # Argo CD UI without the ingress
 kubectl config set-context --current --namespace argocd   # needed by --core
 argocd app diff <app> --core
 kubectl -n argocd annotate applicationset apps argocd.argoproj.io/application-set-refresh=true   # recheck git now
