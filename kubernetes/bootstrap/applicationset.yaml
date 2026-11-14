@@ -19,6 +19,9 @@ spec:
       destination:
         server: https://kubernetes.default.svc
         namespace: "{{ .namespace }}"
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
   templatePatch: |
     spec:
       sources:
@@ -30,6 +33,7 @@ spec:
           chart: "{{ .chart.name }}"
           targetRevision: "{{ .chart.version }}"
           helm:
+            ignoreMissingValueFiles: true
             valueFiles:
               - $values/kubernetes/apps/{{ .path.basename }}/values.yaml
       {{- else }}
