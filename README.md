@@ -35,6 +35,7 @@ flowchart LR
 | GitOps | Argo CD 3.6 | one folder per app |
 | Storage | local-path-provisioner | default StorageClass |
 | Load balancer | MetalLB 0.16 | L2, `10.0.10.30-.33` |
+| Ingress | Traefik 3.7 | `10.0.10.30` |
 
 Networks: LAN `10.0.10.0/24`, pods `10.244.0.0/16`, services `10.96.0.0/12`.
 
