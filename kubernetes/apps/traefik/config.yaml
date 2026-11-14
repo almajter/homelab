@@ -1,0 +1,5 @@
+namespace: traefik
+chart:
+  repoURL: https://traefik.github.io/charts
+  name: traefik
+  version: 42.4.0
