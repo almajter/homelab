@@ -11,3 +11,6 @@ apps, the chart. Helm values go in `values.yaml`; apps without a chart use
 - **metallb**: Helm 0.16.2, L2 mode (ARP). Gives `LoadBalancer` Services an IP.
 - **metallb-config**: pool `10.0.10.30-10.0.10.33` and its L2Advertisement.
 - **traefik**: Helm 42.4.0, default IngressClass, Service on `10.0.10.30`.
+  `externalTrafficPolicy: Local` and trusting the reverse proxy
+  (`10.0.10.14`) keep the client IP in `X-Forwarded-For`.
+- **whoami**: test app at `whoami.alters.si`, echoes the request.
