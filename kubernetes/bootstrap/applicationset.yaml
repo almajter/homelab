@@ -5,6 +5,8 @@ metadata:
   namespace: argocd
 spec:
   goTemplate: true
+  syncPolicy:
+    preserveResourcesOnDeletion: true
   generators:
     - git:
         repoURL: https://github.com/almajter/homelab.git
@@ -20,6 +22,9 @@ spec:
         server: https://kubernetes.default.svc
         namespace: "{{ .namespace }}"
       syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
         syncOptions:
           - CreateNamespace=true
   templatePatch: |
