@@ -30,8 +30,9 @@ kubectl apply -f kubernetes/bootstrap/applicationset.yaml
 Change the admin password (Secret `argocd-initial-admin-secret` in `argocd`),
 then delete the Secret.
 
-Sync `cilium` first; its diff should only add tracking-id annotations. Then
-delete Helm's record so Argo CD is the only owner:
+Argo CD then syncs every app on its own. For `cilium` that only adds
+tracking-id annotations, since the values are the same. Then delete Helm's
+record so Argo CD is the only owner:
 `kubectl -n kube-system delete secret sh.helm.release.v1.cilium.v1`. Never
 run `helm upgrade` or `helm uninstall` on it.
 
