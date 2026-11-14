@@ -5,6 +5,9 @@ apps, the chart. Helm values go in `values.yaml`; apps without a chart use
 `kustomization.yaml`. Sync is automatic (prune, self-heal). Removing a folder
 leaves the app's resources running; delete them first.
 
+- **alters-si**: my website. Chart and image come from
+  [almajter/alters.si](https://github.com/almajter/alters.si), published to
+  the self-hosted GitLab. Deploy = bump `version` in `config.yaml`.
 - **argocd**: Helm 10.18.0, Argo CD managing itself. UI at
   `argocd.alters.si`; TLS ends at the reverse proxy, so `server.insecure`.
 - **cilium**: Helm 1.20.4. Hubble (Cilium's flow observability) certificates come from a CronJob in the
