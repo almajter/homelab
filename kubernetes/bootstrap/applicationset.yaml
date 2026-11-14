@@ -19,7 +19,10 @@ spec:
       destination:
         server: https://kubernetes.default.svc
         namespace: "{{ .namespace }}"
+  templatePatch: |
+    spec:
       sources:
+      {{- if .chart }}
         - repoURL: https://github.com/almajter/homelab.git
           targetRevision: main
           ref: values
@@ -29,3 +32,8 @@ spec:
           helm:
             valueFiles:
               - $values/kubernetes/apps/{{ .path.basename }}/values.yaml
+      {{- else }}
+        - repoURL: https://github.com/almajter/homelab.git
+          targetRevision: main
+          path: "{{ .path.path }}"
+      {{- end }}
