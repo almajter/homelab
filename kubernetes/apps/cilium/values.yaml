@@ -1,2 +1,6 @@
 ipam:
   mode: kubernetes
+hubble:
+  tls:
+    auto:
+      method: cronJob
