@@ -8,3 +8,16 @@ ports:
     forwardedHeaders:
       trustedIPs:
         - 10.0.10.14/32
+deployment:
+  replicas: 2
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 1
+topologySpreadConstraints:
+  - labelSelector:
+      matchLabels:
+        app.kubernetes.io/name: '{{ template "traefik.name" . }}'
+    maxSkew: 1
+    topologyKey: kubernetes.io/hostname
+    whenUnsatisfiable: DoNotSchedule
+
