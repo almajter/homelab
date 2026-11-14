@@ -8,3 +8,5 @@ apps, the chart. Helm values go in `values.yaml`; apps without a chart use
   cluster; otherwise Argo CD sees new ones on every sync.
 - **local-path**: upstream v0.0.37, made the default StorageClass. Data lives
   in `/opt/local-path-provisioner/` on each node.
+- **metallb**: Helm 0.16.2, L2 mode (ARP). Gives `LoadBalancer` Services an IP.
+- **metallb-config**: pool `10.0.10.30-10.0.10.33` and its L2Advertisement.
