@@ -1,0 +1,28 @@
+config:
+  existingSecret: firefly
+  envValueFrom:
+    DB_PASSWORD:
+      secretKeyRef:
+        name: finance-db-firefly
+        key: password
+  env:
+    DB_HOST: finance-db-rw
+    APP_URL: https://firefly.alters.si
+    DEFAULT_LANGUAGE: en_GB
+    DEFAULT_LOCALE: sl_SI
+    TZ: Europe/Ljubljana
+cronjob:
+  enabled: true
+  auth:
+    existingSecret: firefly
+    secretKey: STATIC_CRON_TOKEN
+ingress:
+  enabled: true
+  hosts:
+    - firefly.alters.si
+resources:
+  requests:
+    cpu: 50m
+    memory: 256Mi
+  limits:
+    memory: 512Mi

@@ -1,0 +1,10 @@
+namespace: finance
+chart:
+  repoURL: https://firefly-iii.github.io/kubernetes/
+  name: firefly-iii
+  version: 1.10.2
+ignoreDifferences:
+  - kind: Secret
+    name: firefly-firefly-iii-app-key
+    jsonPointers:
+      - /data

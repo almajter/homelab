@@ -28,6 +28,7 @@ spec:
         syncOptions:
           - CreateNamespace=true
           - ServerSideApply=true
+          - RespectIgnoreDifferences=true
   templatePatch: |
     spec:
       sources:
@@ -46,4 +47,8 @@ spec:
         - repoURL: https://github.com/almajter/homelab.git
           targetRevision: main
           path: "{{ .path.path }}"
+      {{- end }}
+      {{- if .ignoreDifferences }}
+      ignoreDifferences:
+        {{- toYaml .ignoreDifferences | nindent 4 }}
       {{- end }}
