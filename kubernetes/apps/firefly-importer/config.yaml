@@ -1,0 +1,5 @@
+namespace: finance
+chart:
+  repoURL: https://firefly-iii.github.io/kubernetes/
+  name: importer
+  version: 1.6.1
