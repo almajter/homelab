@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ghostfolio
+  labels:
+    app: ghostfolio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ghostfolio
+  template:
+    metadata:
+      labels:
+        app: ghostfolio
+    spec:
+      containers:
+        - name: ghostfolio
+          image: ghostfolio/ghostfolio:3.100.0
+          envFrom:
+            - secretRef:
+                name: ghostfolio
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: finance-db-ghostfolio
+                  key: password
+            - name: DATABASE_URL
+              value: postgresql://ghostfolio:$(DB_PASSWORD)@finance-db-rw:5432/ghostfolio?connect_timeout=300
+            - name: REDIS_HOST
+              value: ghostfolio-redis
+            - name: REDIS_PORT
+              value: "6379"
+            - name: ROOT_URL
+              value: https://ghostfolio.alters.si
+            - name: TRUST_PROXY
+              value: "2"
+          ports:
+            - name: http
+              containerPort: 3333
+          startupProbe:
+            httpGet:
+              path: /api/v1/health/liveness
+              port: http
+            periodSeconds: 10
+            failureThreshold: 30
+          livenessProbe:
+            httpGet:
+              path: /api/v1/health/liveness
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /api/v1/health
+              port: http
+            timeoutSeconds: 5
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 100m
+              memory: 384Mi
+            limits:
+              memory: 1Gi

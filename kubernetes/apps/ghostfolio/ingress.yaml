@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ghostfolio
+spec:
+  rules:
+    - host: ghostfolio.alters.si
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ghostfolio
+                port:
+                  number: 80
