@@ -40,3 +40,6 @@ needs them syncs; none are in git.
   `externalTrafficPolicy: Local` and trusting the reverse proxy
   (`10.0.10.14`) keep the client IP in `X-Forwarded-For`.
 - **whoami**: test app at `whoami.alters.si`, echoes the request.
+- **zalog-alters-si**: bouldering guide at `zalog.alters.si`. Chart and image
+  come from [almajter/zalog.alters.si](https://github.com/almajter/zalog.alters.si),
+  published to the self-hosted GitLab. Deploy = bump `version` in `config.yaml`.

@@ -1,0 +1,5 @@
+namespace: zalog-alters-si
+chart:
+  repoURL: https://gitlab.alters.si/api/v4/projects/6/packages/helm/stable
+  name: zalog-alters-si
+  version: 0.1.1
