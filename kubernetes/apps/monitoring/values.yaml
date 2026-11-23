@@ -71,6 +71,24 @@ alertmanager:
               storage: 2Gi
 grafana:
   defaultDashboardsTimezone: browser
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+        - name: grafana-com
+          orgId: 1
+          folder: grafana.com
+          type: file
+          disableDeletion: true
+          editable: false
+          options:
+            path: /var/lib/grafana/dashboards/grafana-com
+  dashboards:
+    grafana-com:
+      traefik:
+        gnetId: 17347
+        revision: 9
+        datasource: Prometheus
   admin:
     existingSecret: grafana-admin
   ingress:

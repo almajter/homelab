@@ -10,6 +10,13 @@ ports:
         - 10.0.10.14/32
 deployment:
   replicas: 2
+metrics:
+  prometheus:
+    addRoutersLabels: true
+    service:
+      enabled: true
+    serviceMonitor:
+      enabled: true
 podDisruptionBudget:
   enabled: true
   minAvailable: 1
