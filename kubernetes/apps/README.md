@@ -30,6 +30,14 @@ needs them syncs; none are in git.
 - **ghostfolio**: Ghostfolio (investments) at `ghostfolio.alters.si`, plus
   Redis without persistence as its cache. No official chart, so plain
   manifests.
+- **monitoring**: Helm kube-prometheus-stack 93.4.1 (Prometheus, Alertmanager,
+  Grafana at `grafana.alters.si`). Prometheus picks up monitors from every
+  namespace (Traefik, finance-db), keeps 15 days on local-path. Alerts go by
+  email through Brevo; the SMTP key and the recipient come from the
+  `alertmanager-smtp` Secret (the recipient as a template, since `to` can't
+  be read from a file). Etcd, scheduler, controller-manager and kube-proxy
+  aren't scraped: kubeadm binds their metrics to localhost. Grafana has no
+  volume; its dashboards come from grafana.com via values.
 - **cilium**: Helm 1.20.4. Hubble (Cilium's flow observability) certificates come from a CronJob in the
   cluster; otherwise Argo CD sees new ones on every sync.
 - **local-path**: upstream v0.0.37, made the default StorageClass. Data lives
