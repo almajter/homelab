@@ -89,6 +89,10 @@ grafana:
         gnetId: 17347
         revision: 9
         datasource: Prometheus
+      cloudnativepg:
+        gnetId: 20417
+        revision: 4
+        datasource: Prometheus
   admin:
     existingSecret: grafana-admin
   ingress:

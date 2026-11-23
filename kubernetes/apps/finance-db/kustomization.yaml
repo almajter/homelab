@@ -4,3 +4,4 @@ resources:
   - cluster.yaml
   - database-firefly.yaml
   - database-ghostfolio.yaml
+  - podmonitor.yaml
