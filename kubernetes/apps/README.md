@@ -40,6 +40,12 @@ needs them syncs; none are in git.
   volume; its dashboards come from grafana.com via values.
 - **cilium**: Helm 1.20.4. Hubble (Cilium's flow observability) certificates come from a CronJob in the
   cluster; otherwise Argo CD sees new ones on every sync.
+- **gpu-operator**: Helm v26.7.3, NVIDIA GPU Operator on `k8s-gpu-01`
+  (driver, container toolkit, device plugin). The node is tainted
+  `nvidia.com/gpu=true:NoSchedule`; GPU pods tolerate it and request
+  `nvidia.com/gpu: 1`. `gpu-power-limit` caps the card at 250 W and checks
+  every 10 s, because a driver reload resets it to 350 W. It runs from the
+  driver image, so its tag follows `driver.version`.
 - **local-path**: upstream v0.0.37, made the default StorageClass. Data lives
   in `/opt/local-path-provisioner/` on each node.
 - **metallb**: Helm 0.16.2, L2 mode (ARP). Gives `LoadBalancer` Services an IP.
