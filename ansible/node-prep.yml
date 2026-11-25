@@ -32,6 +32,7 @@
         dest: /etc/containerd/config.toml
         content: |
           version = 4
+          imports = ["/etc/containerd/conf.d/*.toml"]
 
           [plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
             SystemdCgroup = true
