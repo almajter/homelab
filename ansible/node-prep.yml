@@ -70,3 +70,21 @@
         name: containerd
         state: restarted
 
+- name: Prepare the media disk
+  hosts: gpu
+  become: true
+  tasks:
+    - name: Create the filesystem
+      community.general.filesystem:
+        dev: /dev/vdb
+        fstype: ext4
+        opts: -L media
+
+    - name: Mount it
+      ansible.posix.mount:
+        path: /srv/media
+        src: LABEL=media
+        fstype: ext4
+        opts: defaults
+        state: mounted
+

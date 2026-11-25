@@ -8,6 +8,9 @@ containerd loads `/etc/containerd/conf.d/*.toml`, where the NVIDIA toolkit
 puts its runtime. On the GPU node the toolkit also rewrites `config.toml`,
 so every run there shows `changed` and restarts containerd.
 
+On the GPU node it also formats the data disk (once, label `media`) and
+mounts it at `/srv/media`.
+
 ```sh
 # from the repo root
 ansible-galaxy collection install -r ansible/requirements.yml

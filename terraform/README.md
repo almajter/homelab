@@ -1,7 +1,8 @@
 # terraform
 
 Creates the three VMs from the Debian 13 cloud image, plus `k8s-gpu-01`
-from Ubuntu 24.04 with the RTX 3090 passed through.
+from Ubuntu 24.04 with the RTX 3090 passed through and a 300 GB data disk
+(left out of Proxmox backups).
 
 Needs:
 

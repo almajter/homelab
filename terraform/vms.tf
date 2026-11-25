@@ -95,6 +95,15 @@ resource "proxmox_virtual_environment_vm" "gpu" {
     size         = 100
   }
 
+  disk {
+    datastore_id = "local-lvm"
+    interface    = "virtio1"
+    backup       = false
+    iothread     = true
+    discard      = "on"
+    size         = 300
+  }
+
   hostpci {
     device  = "hostpci0"
     mapping = "rtx3090"
