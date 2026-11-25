@@ -58,3 +58,64 @@ resource "proxmox_virtual_environment_vm" "node" {
     }
   }
 }
+
+resource "proxmox_virtual_environment_vm" "gpu" {
+  name            = "k8s-gpu-01"
+  vm_id           = 123
+  node_name       = "pve"
+  stop_on_destroy = true
+  machine         = "q35"
+  bios            = "ovmf"
+
+  cpu {
+    cores = 6
+    type  = "host"
+  }
+
+  memory {
+    dedicated = 32768
+  }
+
+  efi_disk {
+    datastore_id      = "local-lvm"
+    type              = "4m"
+    pre_enrolled_keys = false
+  }
+
+  disk {
+    datastore_id = "local-lvm"
+    import_from  = proxmox_download_file.ubuntu2404.id
+    interface    = "virtio0"
+    iothread     = true
+    discard      = "on"
+    size         = 100
+  }
+
+  hostpci {
+    device  = "hostpci0"
+    mapping = "rtx3090"
+    pcie    = true
+  }
+
+  network_device {
+    bridge = "vmbr0"
+  }
+
+  initialization {
+    ip_config {
+      ipv4 {
+        address = "10.0.10.23/24"
+        gateway = "10.0.10.1"
+      }
+    }
+
+    dns {
+      servers = ["10.0.10.17"]
+    }
+
+    user_account {
+      username = "ubuntu"
+      keys     = [trimspace(file("~/.ssh/id_rsa.pub"))]
+    }
+  }
+}
