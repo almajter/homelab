@@ -67,6 +67,10 @@ resource "proxmox_virtual_environment_vm" "gpu" {
   machine         = "q35"
   bios            = "ovmf"
 
+  agent {
+    enabled = true
+  }
+
   cpu {
     cores = 6
     type  = "host"
